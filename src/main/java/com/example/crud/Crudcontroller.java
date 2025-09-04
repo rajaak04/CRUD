@@ -1,52 +1,60 @@
 package com.example.crud;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/employees")
-@CrossOrigin(origins = "http://localhost:3000") // React runs on port 3000
+@Controller
 public class Crudcontroller {
 
     @Autowired
     crudrepository repository;
 
     // Get all employees
-    @GetMapping
-    public List<Module> getAllEmployees() {
-        return repository.findAll();
+    
+    @GetMapping("/home/new")
+    public String gohome(Model model) {
+    	
+    	model.addAttribute("employee", new Module());
+    	return "new";
+    	
     }
-
-    // Get single employee by id
-    @GetMapping("/{id}")
-    public Module getEmployee(@PathVariable Long id) {
-        return repository.findById(id).orElse(null);
+    
+    @PostMapping("/enter")
+    public String goenter(Model model,@ModelAttribute("employee") Module module) {
+    	repository.save(module);
+    	return "redirect:/home";
     }
-
-    // Add employee
-    @PostMapping
-    public Module addEmployee(@RequestBody Module module) {
-        return repository.save(module);
+    
+    @GetMapping("/home")
+    public String gorelate(Model model) {
+    	model.addAttribute("employee",repository.findAll());
+    	return "employer";
+    	
     }
-
-    // Update employee
-    @PutMapping("/{id}")
-    public Module updateEmployee(@PathVariable Long id, @RequestBody Module module) {
-        Module existing = repository.findById(id).orElse(null);
-        if (existing != null) {
-            existing.setE_name(module.getE_name());
-            existing.setE_salary(module.getE_salary());
-            existing.setE_dept(module.getE_dept());
-            return repository.save(existing);
-        }
-        return null;
+    @GetMapping("/update/{id}")
+    public String goVAriant(Model model,@PathVariable Long id) {
+    	model.addAttribute("model", repository.findById(id).get());
+    	return "edit";
+    	
     }
-
-    // Delete employee
-    @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable Long id) {
-        repository.deleteById(id);
+   
+    @PostMapping("/edit/{id}")
+    public String goedit(@ModelAttribute("model") Module module,@PathVariable Long id) {
+    	Module modules=repository.findById(id).get();
+    	modules.setE_dept(module.getE_dept());
+    	modules.setE_name(module.getE_name());
+    	modules.setE_salary(module.getE_salary());
+    	repository.save(modules);
+    	return "redirect:/home";
     }
+    @GetMapping("/delete/{id}")
+    public String godelete(@PathVariable Long id) {
+    	repository.deleteById(id);
+    	return "redirect:/home";
+    }
+    
 }
