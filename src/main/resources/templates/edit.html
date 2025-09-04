@@ -1,0 +1,22 @@
+ <!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head> 
+    <title>Student List</title> 
+</head> 
+<body> 
+    <h1>Update Employer</h1> 
+	<form th:action="@{/edit/{id} (id=${model.id})}" th:object="${model}" method="post">
+	<label>
+		Enter Your Name:
+		<input type="text" th:field="*{e_name}">
+	</label>
+	<label>
+		Enter Your Dept:
+		<input type="text" th:field="*{e_dept}">
+	</label>
+	<label>
+			Enter Your Salary:
+			<input type="text" th:field="*{e_salary}">
+		</label> 
+		<input type="submit">
+	</form></body></html>

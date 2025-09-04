@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+	<title>new</title>
+</head>	
+<body
+>
+
+<h1>Add new User</h1>
+<form th:action="@{/enter}" th:object="${employee}" method="post">
+	<label>Enter Your Name:
+		
+		<input type="text" th:field="*{e_name}">
+	</label>
+	<label>Enter Your Salary:
+			
+			<input type="text" th:field="*{e_salary}">
+		</label>
+		<label>Enter Your Dept:
+				
+				<input type="text" th:field="*{e_dept}">
+			</label>
+			<input type="submit">
+	
+	
+</form>
+
+</body>
+</html>
