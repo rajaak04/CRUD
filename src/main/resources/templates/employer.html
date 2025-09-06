@@ -4,10 +4,10 @@
     <title>Student List</title> 
 </head> 
 <body> 
-    <h1>Employer List</h1> 
-	<table>
+    <h1 style="text-align: center;">Employer List</h1> 
+	<table  border="2"   style="border-collapse: collapse;text-align: center;border-spacing: 20px 10px; width: 400px; font-size: 20px;margin-left: 550px;">
 		
-		<div th:each="employees : ${employee}">
+		
 			<tr>
 				<th>
 					Name
@@ -17,7 +17,10 @@
 					
 				</th>
 				<th>Dept</th>
+				<th>Update</th>
+				<th>Delete</th>
 			</tr>
+<tr><div th:each="employees:${employee}">
 			<td >
 				<span th:text="${employees.e_name}"></span>
 			</td>
@@ -29,9 +32,9 @@
 			</td>
 			<td><a th:href="@{/update/{id} (id=${employees.id})}">Update</a></td>
 			<td><a th:href="@{/delete/{id} (id=${employees.id})}">Delete</a></td>
-			
+			</tr>
 		</div>
 	</table>
-	<a th:href="@{/home/new}">Add New Employer</a>
+	<a th:href="@{/home/new}" style="margin-left: 790px;font-size: 20px;margin-top: -180px;">Add New Employer</a>
 	</body>
 </html>

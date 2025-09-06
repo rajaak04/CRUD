@@ -5,7 +5,7 @@
 </head> 
 <body> 
     <h1>Update Employer</h1> 
-	<form th:action="@{/edit/{id} (id=${model.id})}" th:object="${model}" method="post">
+	<form th:action="@{/edit/{id} (id=${model.id})}" th:object="${model}" method="post" style="font-size: 20px;">
 	<label>
 		Enter Your Name:
 		<input type="text" th:field="*{e_name}">
